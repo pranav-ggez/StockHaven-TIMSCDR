@@ -16,17 +16,17 @@ def get_usd_inr_rate():
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    stocks = []              # list of all valid stocks (for comparison table)
-    primary_stock = None     # first valid stock (for detailed card)
-    errors = []              # list of error messages
+    stocks = []             
+    primary_stock = None     
+    errors = []          
 
-    usd_inr_rate = None      # lazy-loaded when needed
+    usd_inr_rate = None   
 
     if request.method == "POST":
         raw = request.form.get("company", "").strip()
 
         if raw:
-            # allow multiple comma-separated symbols: "AAPL, MSFT, TSLA"
+       
             symbols = [s.strip().upper() for s in raw.split(",") if s.strip()]
 
             for sym in symbols:
@@ -34,7 +34,7 @@ def index():
                     ticker = yf.Ticker(sym)
                     info = ticker.info
 
-                    # basic validation – some symbols return empty info
+               
                     if not info or ("longName" not in info and "shortName" not in info):
                         errors.append(f"Data not found for symbol: {sym}")
                         continue
@@ -47,15 +47,15 @@ def index():
                     market_cap = info.get("marketCap")
                     currency = info.get("currency", "USD")
 
-                    # Change and % change (in original currency)
+         
                     change = None
                     change_percent = None
                     if price is not None and prev_close not in (None, 0):
                         change = price - prev_close
                         change_percent = (change / prev_close) * 100
 
-                    # ---- INR CONVERSION LOGIC ----
-                    conversion_rate = None  # how many INR per 1 original currency
+                 
+                    conversion_rate = None 
 
                     if currency == "INR":
                         conversion_rate = 1.0
@@ -64,7 +64,7 @@ def index():
                             usd_inr_rate = get_usd_inr_rate()
                         conversion_rate = usd_inr_rate
                     else:
-                        # You can extend this later for other currencies
+                     
                         conversion_rate = None
 
                     def to_inr(value):
