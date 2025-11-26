@@ -8,19 +8,19 @@
 
 </head>
 <body>
-    <!-- Background Video -->
+   
     <video autoplay muted loop playsinline id="bg-video">
         <source src="{{ url_for('static', filename='videoplayback.mp4') }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
-    <!-- Blur / gradient overlay -->
+   
     <div class="overlay"></div>
 
-    <!-- Optional particle layer (only if styled in CSS) -->
+    
     <div id="particles"></div>
 
-    <!-- Main content card -->
+    
     <div class="container">
         <h1>StockHaven's Stock Info Fetcher</h1>
 
@@ -42,7 +42,7 @@
         </ul>
         {% endif %}
 
-        <!-- Detailed view for the first valid stock -->
+       
         {% if primary_stock %}
         <div class="card">
             <h2>{{ primary_stock.name }} ({{ primary_stock.symbol }})</h2>
@@ -120,7 +120,7 @@
         </div>
         {% endif %}
 
-        <!-- Comparison table for all valid stocks -->
+       
         {% if stocks %}
         <h3 class="table-title">Stock Comparison (All INR where possible)</h3>
         <div class="table-wrapper">
@@ -146,7 +146,7 @@
                         <td>{{ s.symbol }}</td>
                         <td>{{ s.name }}</td>
 
-                        <!-- Price -->
+                    
                         <td>
                             {% if s.price_inr is not none %}
                                 ₹ {{ s.price_inr | round(2) }}
@@ -157,7 +157,7 @@
                             {% endif %}
                         </td>
 
-                        <!-- Change -->
+                     
                         <td>
                             {% if s.change is not none %}
                                 <span class="change
@@ -175,7 +175,7 @@
                             {% endif %}
                         </td>
 
-                        <!-- % Change -->
+                      
                         <td>
                             {% if s.changePercent is not none %}
                                 {{ s.changePercent | round(2) }}%
@@ -184,7 +184,7 @@
                             {% endif %}
                         </td>
 
-                        <!-- Market Cap -->
+                      
                         <td>
                             {% if s.marketCap_inr is not none %}
                                 ₹ {{ s.marketCap_inr | round(2) }}
@@ -195,7 +195,7 @@
                             {% endif %}
                         </td>
 
-                        <!-- Open -->
+                        
                         <td>
                             {% if s.open_inr is not none %}
                                 ₹ {{ s.open_inr | round(2) }}
@@ -206,7 +206,7 @@
                             {% endif %}
                         </td>
 
-                        <!-- Previous Close -->
+                        
                         <td>
                             {% if s.previousClose_inr is not none %}
                                 ₹ {{ s.previousClose_inr | round(2) }}
@@ -217,7 +217,7 @@
                             {% endif %}
                         </td>
 
-                        <!-- Day High -->
+                        
                         <td>
                             {% if s.dayHigh_inr is not none %}
                                 ₹ {{ s.dayHigh_inr | round(2) }}
@@ -228,7 +228,7 @@
                             {% endif %}
                         </td>
 
-                        <!-- Day Low -->
+                    
                         <td>
                             {% if s.dayLow_inr is not none %}
                                 ₹ {{ s.dayLow_inr | round(2) }}
@@ -239,7 +239,7 @@
                             {% endif %}
                         </td>
 
-                        <!-- Original currency info -->
+                     
                         <td>{{ s.currency }}</td>
                     </tr>
                     {% endfor %}
