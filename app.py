@@ -5,7 +5,8 @@ import plotly.graph_objects as go
 
 app = Flask(__name__)
 
-binance = Client()
+binance = None
+binance_disabled = False
 
 def get_usd_inr_rate():
     try:
@@ -18,7 +19,14 @@ def get_usd_inr_rate():
 
 
 def fetch_from_binance(symbol):
+    global binance, binance_disabled
+    if binance_disabled:
+        return None
+
     try:
+        if binance is None:
+            binance = Client()
+
         symbol = symbol.upper()
         if not symbol.endswith(("USDT", "BUSD", "BTC")):
             symbol = symbol + "USDT"
@@ -26,6 +34,7 @@ def fetch_from_binance(symbol):
         data = binance.get_ticker(symbol=symbol)
         price = float(data["lastPrice"])
         prev_price = float(data.get("prevClosePrice", 0))
+
         change = price - prev_price if prev_price else None
         change_percent = (change / prev_price * 100) if prev_price else None
 
@@ -42,8 +51,11 @@ def fetch_from_binance(symbol):
             "change": change,
             "changePercent": change_percent
         }
+
     except:
+        binance_disabled = True
         return None
+
 
 
 def generate_candles(symbol):
