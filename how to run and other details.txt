@@ -7,6 +7,7 @@ then click "go live" on vscode to run the frontend
 -----------------------------------------------------
 
 Supported Yfinance Stocks - https://finance.yahoo.com/lookup/
+Supported Binance Stocks - https://www.binance.com/en-IN/binance-api
 
 -----------------------------------------------------
 
